@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Extract Region{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class="row">
+    <div class="col-lg-8 mb-4">
+    {% if has_errors %}
+        <p>ERROR: {{ errors }}</p>
+    {% endif %}
+
+    <h4>Extract Region</h4>
+    <hr/>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Region name:</label>
+            <input type="text" class="form-control" name="region_name"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Reference sequence file:</label><br/>
+            <select name="ref_file">
+                {% for name in reference_files %}
+                    <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>WGA sequence file:</label><br/>
+            <select name="wga_ref_seq_file">
+                {% for name in wga_files %}
+                    <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>No-WGA sequence file:</label><br/>
+            <select name="nwga_ref_seq_file">
+                {% for name in nwga_files %}
+                    <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Region start:</label>
+            <input type="text" class="form-control" name="region_start"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Region end:</label>
+            <input type="text" class="form-control" name="region_end"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Window size (default is 100):</label>
+            <input type="text" class="form-control" name="window_size"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Chromosome:</label>
+            <input type="text" class="form-control" name="chromosome"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Outlier removal</label><br/>
+            <select name="outlier_remove">
+                {% for name in outlier_remove_names %}
+                    <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Remove gaps (default is true):</label><br/>
+            <select name="remove_gaps">
+                <option value="true"> true </option>
+                <option value="false"> false </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Gap indicator (default is -999.5 only used when remove gaps is false):</label>
+            <input type="text" class="form-control" name="gap_indicator" value="-999.5"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Max depth (default is 1000):</label>
+            <input type="text" class="form-control" name="max_depth"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Ignore orphans (default is false):</label><br/>
+            <select name="ignore_orphans">
+                <option value="false"> false </option>
+                <option value="true"> true </option>
+            </select>
+        </div>
+    </div>
+
+    <br/>
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Truncate (default is false):</label><br/>
+            <select name="truncate">
+                <option value="false"> false </option>
+                <option value="true"> true </option>
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Quality threshold (default is 20):</label>
+            <input type="text" class="form-control" name="quality_threshold"><br/>
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Add indels (default is true):</label><br/>
+            <select name="add_indels">
+                <option value="true"> true </option>
+                <option value="false"> false </option>
+            </select>
+        </div>
+    </div>
+
+    <br/>
+
+    <button type="submit" class="btn btn-primary">Extract</button>
+</form>
+</div>
+</div>
+{% endblock inner_body %}

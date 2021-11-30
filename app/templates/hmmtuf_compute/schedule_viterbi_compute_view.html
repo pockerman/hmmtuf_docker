@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Compute Viterbi Path{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class="row">
+    <div class="col-lg-8 mb-4">
+    {% if error_empty_hmm_list %}
+        <p>ERROR: {{ error_empty_hmm_list }} <a href="/load_file/load_hmm">Create HMM models</a></p>
+    {% elif error_empty_region_list %}
+        <p>ERROR: {{ error_empty_region_list }} <a href="/load_file/load_region">Upload a region file</a></p>
+    {% else %}
+    <h4>Schedule Viterbi path computation</h4>
+    <hr/>
+
+        {% if no_seq_group %}
+        <p>ERROR: {{ no_seq_group }}</p>
+        {% endif %}
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Region file:</label><br/>
+            <select id="id_region" name="region">
+                {% for region_name in region_names %}
+                    <option value="{{ region_name }}">{{ region_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>HMM file:</label><br/>
+            <select name="hmm">
+                {% for hmm_name in hmm_names %}
+                    <option value="{{ hmm_name }}">{{ hmm_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    {% if use_spade %}
+    <input type="checkbox" name="use_spade" value="True">
+    <label for="use_spade">Use SPADE</label><br><br>
+
+    <input type="checkbox" name="remove_dirs" value="True">
+    <label for="remove_dirs">Remove created directories</label><br><br>
+    {% endif %}
+
+    <br/>
+    <button type="submit" class="btn btn-primary">Compute</button>
+</form>
+</div>
+</div>
+{% endif %}
+{% endblock inner_body %}

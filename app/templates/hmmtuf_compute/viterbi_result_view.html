@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-View Viterbi Path{% endblock title %}
+{%block inner_body %}
+{% load static %}
+
+<br/>
+
+{% if show_get_results_button %}
+
+<div class="row">
+    <div class="col-lg-8 mb-4">
+            <h4>Viterbi path calculation task submitted</h4>
+            <h5>Task id: {{ task_id }}</h5>
+            <h5>Computation  status: {{ task_status }}</h5>
+
+        <a href="/compute/view_viterbi_path/{{ task_id }}" class="btn btn-primary">Get Results</a>
+    </div>
+
+</div>
+{% elif  error_task_failed %}
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <h4>Viterbi path calculation task FAILED</h4>
+        <h5>Task id: {{ task_id }}</h5>
+        <h5>ERROR: Task {{ task_id }} failed</h5>
+        <h5>MESSAGE: {{ computation.error_explanation }}</h5>
+    </div>
+</div>
+{% else %}
+
+{% if use_spade %}
+<div class="row">
+
+    <div class="col-lg-12" id="igv-browser">
+    </div>
+</div>
+{% endif %}
+
+<div class="row text-center">
+    <a href="{% url 'download_viterbi_result_csv' task_id=task_id  %}" class="btn btn-primary">Download Viterbi path</a>
+</div>
+
+<br/>
+<br/>
+
+{% if use_spade %}
+<script>
+function hideShowDiv(idStr) {
+      var x = document.getElementById(idStr);
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        var button = document.getElementById("show_hmm_model_button").value="Hide HMM Model";
+        button.value="Hide HMM Model";
+        //console.log("Button value:")
+        console.log(button.value);
+      }
+      else {
+        x.style.display = "none";
+        var button = document.getElementById("show_hmm_model_button").value="Show HMM Model";
+        button.value="Show HMM Model";
+        console.log(button.value);
+      }
+}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/igv@2.6.2/dist/igv.min.js"></script>
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function () {
+
+var options =
+        {
+            locus: '{{locus}}:{{start_region_idx}}-{{end_region_idx}}',
+            flanking: 1000,
+            genome: 'hg38',
+            tracks: [
+                {
+                    name: '{{no_wga_seq_name}}',
+                    url: '/static/igv_tracks/{{no_wga_tdf_file}}',
+                    indexed: false,
+                    min:0,
+                    max:60,
+                    graphType:"lines",
+                    roi: [
+                        {
+                            name: 'TUF',
+                            url: '{{tuf_bed_url}}',
+                            color: "rgba(200, 18, 10, 0.15)"
+                        },
+                        {
+                            name: 'CORE',
+                            url: '{{tdt_bed_url}}',
+                            color: "rgba(18, 200, 10, 0.25)"
+                        }
+                    ]
+                },
+                {
+                    name: '{{wga_seq_name}}',
+                    url: '/static/igv_tracks/{{wga_tdf_file}}',
+                    indexed: false,
+                    min:0,
+                    max:60,
+                    graphType:"lines",
+                    roi: [
+                        {
+                            name: 'TUF',
+                            url: '{{tuf_bed_url}}',
+                            color: "rgba(200, 18, 10, 0.15)"
+                        },
+                        {
+                            name: 'CORE',
+                            url: '{{tdt_bed_url}}',
+                            color: "rgba(18, 200, 10, 0.25)"
+                        }
+                    ]
+                },
+                {
+                    name: 'TUF',
+                    url: '{{tuf_bed_url}}',
+                    indexed: false,
+                    format: "bed",
+                    displayMode: "SQUISHED",
+                    height: 30
+               },
+                {
+                    name: 'Normal',
+                    url: '{{normal_bed_url}}',
+                    format: "bed",
+                    indexed: false,
+                    displayMode: "SQUISHED",
+                    height: 30
+               },
+               {
+                    name: 'Deletion',
+                    url: '{{deletion_bed_url}}',
+                    indexed: false,
+                    format: "bed",
+                    displayMode: "SQUISHED",
+                    height: 30
+               },
+
+                {
+                    name: 'Duplication',
+                    url: '{{duplication_bed_url}}',
+                    indexed: false,
+                    format: "bed",
+                    displayMode: "SQUISHED",
+                    height: 30
+               },
+                {
+                    name: 'GAP',
+                    url: '{{gap_bed_url}}',
+                    indexed: false,
+                    format: "bed",
+                    displayMode: "SQUISHED",
+                    height: 30
+               },
+                {
+                    name: 'Repeats',
+                    url: '{{repeats_bed_url}}',
+                    indexed: false,
+                    format: "bed",
+                    displayMode: "SQUISHED",
+                    height: 30
+               },
+                {
+                    name: 'GQUAD',
+                    url: '{{quad_bed_url}}',
+                    indexed: false,
+                    format: "bed",
+                    displayMode: "SQUISHED",
+                    height: 30
+               }
+            ]
+        };
+        var igvDiv = document.getElementById("igv-browser");
+        igv.createBrowser(igvDiv, options)
+                .then(function (browser) {
+                    console.log("Created IGV browser");
+                })
+});
+</script>
+
+<script>
+    var svg = d3.select("#canvas");
+</script>
+{% endif %}
+{% endif %}
+{% endblock inner_body %}

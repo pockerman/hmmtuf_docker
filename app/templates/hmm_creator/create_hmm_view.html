@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Upload region file{% endblock title %}
+{%block inner_body %}
+{% load static %}
+<br />
+<div class="row p-4">
+    <div class="col mb-2">
+        <div class="text-center mt-0">
+            <h4>Create HMM</h4>
+        </div>
+        <hr />
+        {% if error_missing_name %}
+        <p>ERROR: {{ error_missing_name }}</p>
+        {% endif %}
+        {% if error_name_exist %}
+        <p>ERROR: {{ error_name_exist }}</p>
+        {% endif %}
+        {% if error_missing_file %}
+        <p>ERROR: {{ error_missing_file }}</p>
+        {% endif %}
+        {% if error_init_p_vector %}
+        <p>ERROR: {{ error_init_p_vector }}</p>
+        {% endif %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="HMM-group">
+                <div class="control-group mb-2">
+                    <label for="hmm-name">Name of HMM:</label>
+                    <input type="text" class="form-control mb-2" name="hmm-name">
+                    <div id="state-group" name="State[]" class="mb-2 mt-2"></div>
+
+                    <fieldset id="TPM-group" class="mb-2 p-2 mt-2 prob-group">
+                        <legend>Transition Probability Matrix</legend>
+                        <div class="st-group pb-2" name="State_M[]"></div>
+                    </fieldset>
+                    
+                    <fieldset id="IPV-group" class="p-2 mb-2 mt-2  prob-group">
+                        <legend>Initial Probability Vector</legend>
+                        <div class="field-group"></div>
+                        <small class="text-danger" id="error">Sum of all values should 1</small>
+                        <div class="form-group">
+                            <label for="IPV-Value">Initial Probability Vector:</label>
+                            <input type="text" name="IPV-Value" id="IPV-Value" class="form-control">
+                        </div>
+                    </fieldset>
+                    <button type="button" id="add_state" class="btn btn-small  btn-success mb-2">Add State</button>
+                    <button type="button" id="add_TPM" class="btn  prob btn-primary mb-2">Add Transition Probability Matrix</button>
+                    <button type="button" id="add_IPV" class="btn  prob btn-primary mb-2">Add Initial Probability Vector</button>
+                </div>
+            </div>
+            <hr />
+            <button type="submit" class="btn btn-small btn-primary float-right">Create</button>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/hmm_creator.js' %}"></script>
+
+
+{% endblock inner_body %}

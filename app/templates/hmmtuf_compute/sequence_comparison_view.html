@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Sequence Comparison View{% endblock title %}
+{%block inner_body %}
+{% load static %}
+
+<br/>
+
+{% if show_get_results_button %}
+
+<div class="row">
+    <div class="col-lg-8 mb-4">
+            <h4>Sequence comparison calculation task submitted</h4>
+            <h5>Task id: {{ task_id }}</h5>
+            <h5>Computation  status: {{ task_status }}</h5>
+
+        <a href="/compute/view_viterbi_path/{{ task_id }}" class="btn btn-primary">Get Results</a>
+    </div>
+
+</div>
+{% elif  error_task_failed %}
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <h4>Sequence comparison calculation task FAILED</h4>
+        <h5>Task id: {{ task_id }}</h5>
+        <h5>ERROR: Task {{ task_id }} failed</h5>
+        <h5>MESSAGE: {{ computation.error_explanation }}</h5>
+    </div>
+</div>
+{% else %}
+
+<div class="row">
+
+    <p>Metric type: {{computation.distance_metric}}</p>
+
+     <div class="table-responsive">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Sequence 1</th>
+                <th>Sequence 2</th>
+                <th>Metric Value</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for key, value  in similarity_map.items %}
+
+                <tr>
+                    <th>{{forloop.counter}}</th>
+                    <th>{{key.0}}</th>
+                    <th>{{key.1}}</th>
+                    <th>{{value}}</th>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+<br/>
+
+{% endif %}
+{% endblock inner_body %}

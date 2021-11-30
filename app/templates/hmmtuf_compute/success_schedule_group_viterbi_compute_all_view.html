@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Success Schedule Group Viterbi All Computation{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class ="row">
+<div class="col-lg-8 mb-4">
+    {% if error_msg %}
+    <p>ERROR: {{ error_msg }}</p><br/>
+    {% endif %}
+<p>Successfully scheduled group-region Viterbi computation. <a href="/compute/view_group_viterbi_all/{{task_id}}" target="_blank">View task state</a></p><br/>
+</div>
+</div>
+{% endblock inner_body %}

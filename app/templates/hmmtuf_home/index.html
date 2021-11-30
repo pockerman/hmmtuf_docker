@@ -1,0 +1,59 @@
+
+{% extends "base.html" %}
+{% block title %}HMMtuf-Home{% endblock title %}
+
+{%block inner_body %}
+
+
+   {% if messages %}
+<div class="row">
+    <ul class="messages">
+        {% for message in messages %}
+        <li class="{{ message.tags }}">
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} ERROR:
+            {% elif message.level == DEFAULT_MESSAGE_LEVELS.INFO %}  INFO:
+            {% endif %}
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col mb-2"><h3>About</h3>
+        <hr/>
+        <p>
+            Thermodynamically ultra-fastened (TUF) regions are stretches of the DNA which fail to denature
+            even after the application of extreme melting conditions. This behavior effectively reduces the amplification efficiency in these regions.
+            It has also been reported that  TUF regions contain a core sequence which exhibits an increased GC concentration relative to the surrounding DNA.
+            It is in fact these locally concentrated spikes of GC content which is believed to remain duplexed despite the application of denaturation processes.
+        </p>
+
+        <p>
+            HMMtuf is an simple mapping tool that uses <a href="https://en.wikipedia.org/wiki/Hidden_Markov_model">hidden Markov models</a> in order to label regions of DNA. It was developed
+            at the University of Leicester, UK. Users can load  their own developed models or create new ones. Users can load their own DNA region data for modelling.
+        </p>
+        <p>
+            The application is free of charge and can be downloaded from the project's GitHub repository <a href="https://github.com/pockerman/hmmtuf_app">here</a>.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col mb-2"><h3>Counters</h3>
+        <hr/>
+        <ul>
+            <li>DB name: {{ db_name }}</li>
+            <li>Number of regions loaded: {{ n_regions }}</li>
+            <li>Number of HMM models loaded: {{ n_hmm_models }}</li>
+            <li>Number of distance metrics loaded: {{ n_dist_metrics }}</li>
+            <li>Number of tasks executed: {{ n_total_tasks }}</li>
+            <li>Number of tasks completed: {{ n_success_tasks }}</li>
+            <li>Number of tasks failed: {{ n_failed_tasks }}</li>
+            <li>Number of tasks pending: {{ n_pending_tasks }}</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock inner_body %}

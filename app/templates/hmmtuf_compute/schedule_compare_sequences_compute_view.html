@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Compute Viterbi Sequence Comparison{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class="row">
+    <div class="col-lg-8 mb-4">
+
+{% if no_spade %}
+        <p>ERROR: HMMtuf not configured with SPADE support</p>
+{% else %}
+
+{% if error_empty_hmm_list %}
+        <p>ERROR: {{ error_empty_hmm_list }} <a href="/load_file/load_hmm">Create HMM models</a></p>
+{% else %}
+    {% if error_found %}
+
+        {% if no_seq_chromosome %}
+        <p>ERROR: {{ no_seq_chromosome }}. <a href="/load_file/load_region">Load region.</a></p>
+        {% else %}
+        <p>ERROR: {{ error_msg }}.</a></p>
+        {% endif %}
+    {% endif %}
+    <h4>Schedule group Viterbi path computation</h4>
+    <hr/>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Sequence  tip:</label><br/>
+            <select name="group_tip">
+                {% for group in sequence_tips %}
+                    <option value="{{ group }}">{{ group }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Max number of sequences in group:</label><br/>
+            <input type="number" name="max_num_seqs" value="-1">
+        </div>
+    </div>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Distance  metric:</label><br/>
+            <select name="distance_metric">
+                {% for name in metrics %}
+                    <option value="{{ name }}">{{ name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <button type="submit" class="btn btn-primary">Compute</button>
+</form>
+</div>
+    {% endif %}
+    {% endif %}
+</div>
+{% endblock inner_body %}

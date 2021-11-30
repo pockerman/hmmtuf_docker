@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Compute Group Viterbi Path{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class="row">
+    <div class="col-lg-8 mb-4">
+
+{% if error_empty_hmm_list %}
+        <p>ERROR: {{ error_empty_hmm_list }} <a href="/load_file/load_hmm">Create HMM models</a></p>
+{% elif no_group_list %}
+        <p>ERROR: {{ no_group_list }}</p>
+{% else %}
+    {% if error_found %}
+        {% if no_seq_chromosome %}
+        <p>ERROR: {{ no_seq_chromosome }}. <a href="/load_file/load_region">Load region.</a></p>
+        {% elif no_seq_group %}
+        <p>ERROR: {{ no_seq_group }}.</p>
+        {% else %}
+        <p>ERROR: {{ error_found }}.</a></p>
+        {% endif %}
+    {% endif %}
+    <h4>Schedule group Viterbi path computation</h4>
+    <hr/>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>HMM file:</label><br/>
+            <select id="id_hmm" name="hmm">
+                {% for hmm_name in hmm_names %}
+                    <option value="{{ hmm_name }}">{{ hmm_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label>Group tip:</label><br/>
+            <select name="group_tip">
+                {% for group in group_tips %}
+                    <option value="{{ group.tip }}">{{ group.tip }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <br/>
+
+    {% if use_spade %}
+    <input type="checkbox" name="use_spade" value="True">
+    <label for="use_spade">Use SPADE</label><br><br>
+
+    <input type="checkbox" name="remove_dirs" value="True">
+    <label for="remove_dirs">Remove created directories</label><br><br>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Compute</button>
+</form>
+</div>
+    {% endif %}
+</div>
+{% endblock inner_body %}

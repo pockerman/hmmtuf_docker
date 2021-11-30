@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static "vendor/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static "css/modern-business.css" %}" rel="stylesheet">
+
+  {% if use_extra_custom_css %}
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"/>
+  {% endif %}
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+
+  <title>{% block title %}Default title{% endblock title %}</title>
+</head>
+
+<body>
+  <!-- Navigation for app -->
+  {% block navigation %}
+
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">HMMtuf</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+        data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Administration
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+              <a class="dropdown-item" href="/admin/">Admin Site</a>
+              <a class="dropdown-item" href="/delete_task_directories">Delete Task Directories</a>
+              <a class="dropdown-item" href="/delete_region_files">Delete Region Files</a>
+              <a class="dropdown-item" href="/delete_hmm_files">Delete HMM Files</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/hmm_creator/create_hmm">Create HMM</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Load
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
+              <a class="dropdown-item" href="/load_file/load_region">Load Region File</a>
+              <a class="dropdown-item" href="/load_file/load_hmm">Load HMM File</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCompare" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Compare
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+              <a class="dropdown-item" href="/load_bed/load_bed">Coordinates to Viterbi path</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Compute
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
+              <a class="dropdown-item" href="/compute/hmm_viterbi">Compute Viterbi Path</a>
+              <a class="dropdown-item" href="/compute/hmm_group_viterbi">Compute Group Viterbi Path</a>
+              <a class="dropdown-item" href="/compute/repeats_distances_plot">Plot repeats distances</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <br />
+  {% endblock navigation %}
+
+
+  <div {% if index_page %} class="container" {% else %} class="container" {% endif %}>
+    {%block inner_body %}
+    {% endblock inner_body %}
+  </div>
+
+    <!-- Footer -->
+  <footer class="py-5 bg-white">
+    <hr/>
+    <div class="container">
+
+      <!--<div class="text-center">
+        <img src="{{ MEDIA_URL }}/leicester_logo.png" class="img-fluid" style="max-width:20%">
+      </div>-->
+      <p class="m-0 text-center text-black">University of Leicester 2020</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>

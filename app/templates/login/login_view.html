@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Compute Group Viterbi Path{% endblock title %}
+{%block inner_body %}
+
+<br/>
+
+<div class="row">
+    <div class="col-lg-8 mb-4">
+
+    <h4>HMMtuf login</h4>
+    <hr/>
+{% if error_msg %}
+
+{% endif %}
+<form method="post" enctype="multipart/form-data" action="/hmmtuf_login/login/">
+    {% csrf_token %}
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label class="required" for="id_username">Username:</label>
+            <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+        </div>
+        {% if error_msg %}
+        <div class="col-sm-3">
+            <small id="passwordHelp" class="text-danger">
+              {{ error_msg }}.
+            </small>
+        </div>
+        {% endif %}
+    </div>
+    <br/>
+
+    <div class="control-group form-group">
+        <div class="controls">
+            <label class="required" for="id_password">Password:</label>
+            <input type="password" name="password" autocomplete="current-password" required id="id_password">
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+        {% if error_msg %}
+        <div class="col-sm-3">
+            <small id="passwordHelp" class="text-danger">
+              {{ error_msg }}.
+            </small>
+        </div>
+        {% endif %}
+    </div>
+    <br/>
+
+    <button type="submit" class="btn btn-primary">login</button>
+</form>
+</div>
+</div>
+{% endblock inner_body %}

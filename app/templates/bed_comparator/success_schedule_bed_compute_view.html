@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-View .bed file comparison{% endblock title %}
+{%block inner_body %}
+{% load static %}
+
+<br/>
+
+{% if show_get_results_button %}
+
+<div class="row">
+    <div class="col-lg-8 mb-4">
+            <h4>Viterbi path calculation task submitted</h4>
+            <h5>Task id: {{ task_id }}</h5>
+            <h5>Computation  status: {{ task_status }}</h5>
+
+        <a href="/load_bed/success_load_bed/{{ task_id }}" class="btn btn-primary">Get Results</a>
+    </div>
+
+</div>
+{% elif  error_task_failed %}
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <h4>Bed comparison calculation task FAILED</h4>
+        <h5>ERROR: Task {{ task_id }} failed</h5>
+        <h5>MESSAGE: {{ error_explanation }}</h5>
+    </div>
+</div>
+{% else %}
+
+<div class="row">
+    <div class="col-lg-12" id="result">
+
+        <table class="table">
+            <thead>
+                 <tr>
+                    <th scope="col">State</th>
+                    <th scope="col">Occurrences</th>
+                    <th scope="col">Percentage</th>
+                </tr>
+            </thead>
+            <tbody
+             {% for key, values in summary.items %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ values.0 }}</td>
+                    <td>{{ values.1 }}</td>
+                </tr>
+             {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row text-center">
+        <a href="{% url 'download_bed_result_csv' task_id=task_id  %}" class="btn btn-primary">Download Results</a>
+    </div>
+
+</div>
+<br/>
+<br/>
+
+{% endif %}
+{% endblock inner_body %}

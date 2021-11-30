@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-404 Not Found{% endblock title %}
+{%block inner_body %}
+{% load static %}
+
+
+<div class="row">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-4 mb-3">404
+      <small>Page Not Found</small>
+    </h1>
+
+    <!--<ol class="breadcrumb">
+      <li class="breadcrumb-item">
+        <a href="index.html">Home</a>
+      </li>
+      <li class="breadcrumb-item active">404</li>
+    </ol>-->
+
+    <div class="jumbotron">
+      <h1 class="display-1">404</h1>
+      <p>{{ exception }}</p>
+    </div>
+    <!-- /.jumbotron -->
+</div>
+
+{% endif %}
+{% endblock inner_body %}

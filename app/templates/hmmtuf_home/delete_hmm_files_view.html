@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Delete HMM Files{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class="row">
+    <div class="col-lg-8 mb-4">
+    <h4>Delete all HMM files</h4>
+    <hr/>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">Delete</button>
+</form>
+</div>
+</div>
+{% endblock inner_body %}

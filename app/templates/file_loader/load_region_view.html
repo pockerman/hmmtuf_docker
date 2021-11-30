@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}HMMtuf-Upload region file{% endblock title %}
+{%block inner_body %}
+
+<br/>
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <h4>Upload .txt file describing a chromosome region</h4>
+        <hr/>
+
+        {% if error_found %}
+            <p>ERROR: {{ error_found }}</p>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Region file:</label><br/>
+                    <input type="file" name="region_file"><br/>
+                </div>
+            </div>
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Region name:</label>
+                    <input type="text" class="form-control" name="region_name"><br/>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Reference sequence file:</label><br/>
+                    <select id="" name="ref_seq_region">
+                        {% for name in reference_files %}
+                            <option value="{{ name }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>WGA sequence file:</label><br/>
+                    <select name="wga_seq_region">
+                        {% for name in wga_files %}
+                            <option value="{{ name }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>No WGA sequence file:</label><br/>
+                    <select name="no_wga_seq_region">
+                        {% for name in nwga_files %}
+                            <option value="{{ name }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Chromosome name:</label>
+                    <input type="text" class="form-control" name="chr_name"><br/>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Chromosome index:</label>
+                    <input type="number" class="form-control" name="chr_idx"><br/>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Region start index:</label>
+                    <input type="number" class="form-control" name="region_start_idx"><br/>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Region end index:</label>
+                    <input type="number" class="form-control" name="region_end_idx"><br/>
+                </div>
+            </div>
+
+            <div class="control-group form-group">
+                <div class="controls">
+                    <label>Group tip:</label>
+                    <input type="text" class="form-control" name="region_group_tip"><br/>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock inner_body %}
