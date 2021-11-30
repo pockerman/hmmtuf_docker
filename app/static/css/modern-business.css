@@ -1,0 +1,125 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/templates/modern-business)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+
+ *,
+ *:before,
+ *:after {
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   box-sizing: border-box;
+ }
+
+
+
+body {
+  padding-top: 56px;
+  width: auto;
+  height: auto;
+}
+
+label{
+  margin-bottom: 0%;
+  font-weight: bolder;
+}
+
+fieldset {
+  background-color: #eeeeee;
+  border: 1px dashed black;
+}
+
+.sb-field{
+border-color: 2px solid black;
+
+
+}
+
+.sb-field-legend{
+  background-color: #55555F;;
+  color: white;
+  width: auto;
+  font-size: 1.0rem;
+  padding: 1px 2px;
+
+}
+
+.closebtn{
+  margin-top: -44px;
+  float: right;
+  margin-left: 10px;
+  width: fit-content;
+  margin-right: -16px;
+  float:right;
+  margin-bottom: -5px;
+  
+}
+
+legend {
+  background-color: #55555F;
+  color: white;
+  font-size: 1.25rem;
+  width: auto;
+  padding: 2px 5px;
+}
+
+.prob{
+  display: none;
+}
+.prob-group{
+
+  padding: 1%;
+  border: 1px dashed seashell;
+  display: none;
+}
+
+#error{
+  display: none;
+}
+
+.content{
+  /* background-color: lightgray; */
+  width: 90%;
+  height: 100%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.component-div{
+  display: none;
+}
+.componentItem{
+  padding: 1%;
+  border: 1px solid #f5f5f5;
+}
+
+.single-com-view{
+  padding: 0.3%;
+  border: 1px solid #f5f5f5;
+  display: none;
+}
+
+/* .state{
+padding:0.3%;
+border: 1px solid #f5f5f5;
+} */
+.component-div{
+padding: 0.2%;
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
